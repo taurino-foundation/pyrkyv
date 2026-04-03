@@ -18,9 +18,7 @@ print("\n=== LOAD BENCHMARK ===")
 
 
 
-# ======================
-# LOAD BENCHMARK
-# ======================
+
 
 N = 100_000
 
@@ -48,7 +46,14 @@ for _ in range(N):
     json_module.loads(json)
 print("json load:", time.time() - start)
 
+""" 
+=== LOAD BENCHMARK ===
+pyrkyv load: 1.6823744773864746
+pickle load: 0.17903757095336914
+msgpack load: 0.15428996086120605
+json load: 0.47916150093078613
 
+"""
 
 
 print("=== LAZY LOOKUP BENCHMARK ===")
@@ -75,4 +80,15 @@ start = time.time()
 for _ in range(N):
     msgpack_value["name"]
 print("msgpack:", time.time() - start)
+
+
+""" 
+=== LAZY LOOKUP BENCHMARK ===
+pyrkyv: 0.31873655319213867
+json: 0.014999866485595703
+pickle: 0.014992237091064453
+msgpack: 0.015999794006347656
+
+
+"""
 
