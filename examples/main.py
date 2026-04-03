@@ -27,7 +27,7 @@ N = 100_000
 # rkyv
 start = time.time()
 for _ in range(N):
-    access_archived(archived)
+    load_archived(archived)
 print("rkyv load:", time.time() - start)
 
 # pickle
@@ -54,25 +54,25 @@ print("json load:", time.time() - start)
 print("=== LAZY LOOKUP BENCHMARK ===")
 
 start = time.time()
-for _ in range(100_000):
+for _ in range(N):
     rkyv_value["name"]
 print("rkyv:", time.time() - start)
 
 start = time.time()
-for _ in range(100_000):
+for _ in range(N):
     json_value["name"]
 print("json:", time.time() - start)
 
 
 start = time.time()
-for _ in range(100_000):
+for _ in range(N):
     pickle_value["name"]
 print("pickle:", time.time() - start)
 
 
 
 start = time.time()
-for _ in range(100_000):
+for _ in range(N):
     msgpack_value["name"]
 print("msgpack:", time.time() - start)
 
