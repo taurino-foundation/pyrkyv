@@ -4,7 +4,7 @@ from typing import Union, List, Tuple, Dict, Optional, Any, Iterable
 
 __version__: str
 
-
+# https://github.com/JPK314/pyany-serde/blob/main/src/pyany_serde_type.rs#L477
 # =========================
 # Core Value Type
 # =========================
