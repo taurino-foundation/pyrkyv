@@ -19,8 +19,6 @@ pub fn version() -> &'static str {
 
 // https://github.com/davidhewitt/pythonize/blob/main/src/de.rs#L498
 
-
-
 #[pyfunction]
 fn archive(py: Python<'_>, value: OwnedValue) -> PyResult<Py<PyBytes>> {
     let bytes = archive_value(&value).map_err(pyo3::exceptions::PyValueError::new_err)?;
@@ -28,7 +26,7 @@ fn archive(py: Python<'_>, value: OwnedValue) -> PyResult<Py<PyBytes>> {
 }
 
 #[pyfunction]
-fn access_archived(py: Python<'_>, bytes: &[u8]) -> PyResult<Py<PyAny>> {
+fn load_archived(py: Python<'_>, bytes: &[u8]) -> PyResult<Py<PyAny>> {
     let owned = PyBytes::new(py, bytes);
     let root = access_archived_value(owned.as_bytes()).map_err(pyo3::exceptions::PyValueError::new_err)?;
 
@@ -36,9 +34,9 @@ fn access_archived(py: Python<'_>, bytes: &[u8]) -> PyResult<Py<PyAny>> {
 }
 
 #[pymodule]
-fn pyrkyv(_py: Python, module: &Bound<PyModule>) -> PyResult<()> {
+fn _pyrkyv(_py: Python, module: &Bound<PyModule>) -> PyResult<()> {
     module.add("__version__", version())?;
     module.add_function(wrap_pyfunction!(archive, module)?)?;
-    module.add_function(wrap_pyfunction!(access_archived, module)?)?;
+    module.add_function(wrap_pyfunction!(load_archived, module)?)?;
     Ok(())
 }

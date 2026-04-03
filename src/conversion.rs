@@ -238,7 +238,7 @@ impl ArchivedDictView {
 
         let result_py = result.unbind();
 
-        // Store cache 
+        // Store cache
         self.cache
             .lock()
             .unwrap()
