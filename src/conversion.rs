@@ -112,7 +112,7 @@ pub fn access_archived(bytes: &[u8]) -> Result<&ArchivedOwnedValue, String> {
 struct ArchivedDictView {
     buffer: Py<PyBytes>,
     index: HashMap<String, usize>,
-    cache: std::sync::Mutex<HashMap<String, Py<PyAny>>>, // 🔥
+    cache: std::sync::Mutex<HashMap<String, Py<PyAny>>>,
 }
 
 #[pyclass]
@@ -218,7 +218,7 @@ impl ArchivedDictView {
     }
 
     fn __getitem__(&self, py: Python<'_>, key: &str) -> PyResult<Py<PyAny>> {
-        // 🔥 1. Cache check
+        // Cache check
         if let Some(cached) = self.cache.lock().unwrap().get(key) {
             return Ok(cached.clone_ref(py));
         }
@@ -238,7 +238,7 @@ impl ArchivedDictView {
 
         let result_py = result.unbind();
 
-        // 🔥 2. Cache speichern
+        // Store cache 
         self.cache
             .lock()
             .unwrap()
